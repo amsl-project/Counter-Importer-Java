@@ -1,0 +1,63 @@
+<div ng-show="display" style="margin-top: 5px;">
+	<div ng-click="toggleContent()">{{data.label}}</div>
+	<div ng-show="displayContent">
+		<table>
+			<tr>
+				<td>URI</td>
+				<td style="background: white;">{{data.uri}}</td>
+			</tr>
+			<tr>
+				<td>Organization</td>
+				<td style="background: white;">{{data.organisation}}</td>
+			</tr>
+			<tr>
+				<td>Path to files</td>
+				<td style="background: white;">{{data.folder}}</td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<td>
+					<div ngf-drop="upload($file, data.folder)"
+						ngf-select="upload($file)" class="drop-box"
+						ngf-drag-over-class="'dragover'" ngf-multiple="false"
+						ng-model="file" name="file"
+						ngf-pattern=".xml"
+						style="background: #F8F8F8 none repeat scroll 0% 0%; border: 5px dashed #DDD; width: 170px; text-align: center; margin-left: 10px; height: 50px;">
+						Drop files here or click to open selection dialog.</div>
+					<div ngf-no-file-drop>File Drag/Drop is not supported for
+						this browser</div>
+				</td>
+				<td>
+					<div id="file-label-{{removeSlashes(data.folder)}}"
+						style="font-size: x-small; display: none;">Upload for file:
+						{{file.name}}</div>
+					<div id="file-upload-{{removeSlashes(data.folder)}}"
+						style="background-color: green; color: white; width: 0px; height: 15px; border-radius: 5px;">
+						<div id="file-upload-succes-{{removeSlashes(data.folder)}}"
+							style="opacity: 0; font-size: x-small; margin-left: 20px;">File
+							successfully uploaded!</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+
+		<button type="button"
+			class="btn btn-default list-files-btn-{{removeSlashes(data.folder)}}"
+			ng-click="showFiles()" ng-show="!displayFiles">List uploaded files</button>
+		<button type="button"
+			class="btn btn-default hide-files-btn-{{removeSlashes(data.folder)}}"
+			ng-click="hideFiles()" ng-show="displayFiles">Hide uploaded
+			files</button>
+		<div class="files-{{removeSlashes(data.folder)}}"
+			ng-show="displayFiles">
+			<div
+				style="width: 100%; height: 150px; overflow-x: auto; overflow-y: auto; background-color: white; white-space: nowrap;">
+				click on one file to delete changes
+				<div ng-repeat="file in uploadedFiles">
+					<div ng-click="undoImport(file, data.folder)">{{file}}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

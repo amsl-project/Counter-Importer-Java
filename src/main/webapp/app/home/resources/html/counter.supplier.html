@@ -1,0 +1,10 @@
+<div ng-show="display">
+	<div>
+		<div ng-click="toggleContent()" style="font-size: large; font-weight: bold; height: 20px; float: left">{{data.label}}</div>
+		<div style="font-size: x-small; color: grey; height: 20px; padding-top: 6.5px;">({{data.uri}})</div>
+	</div>
+	<div ng-show="displayContent"
+		ng-repeat="sushiSetting in data.sushiSettings | orderBy:'sushiSetting.label'" style="margin-left: 20px;">
+		<sushi-settings-widget data="sushiSetting"></sushi-settings-widget>
+	</div>
+</div>
